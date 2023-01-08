@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Фильмотека
+    </title>
+    <style>
+        title{color:red;}
+        body{
+        background-color:blueviolet;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        }
+        div{
+        display:flex;
+        align-items:center;
+        flex-direction:column;
+        }
+    </style>
+    <script defer>
+
+    </script>
+</head>
+<body>
+        <div>
+            <ul>
+                <li><a href="{% url 'index' %}"> Главная </a></li>
+                {% for director in directors %}
+                    <li class="li"><a href="{% url 'by_director' director.pk %}">{{director.last_name}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h1>Список фильмов в Фильмотеке</h1>
+            <hr>
+            {% for movie in movies%}
+                <div>
+                    <h2>{{movie.name}}</h2>
+                    <strong>Опубликованно</strong>
+                    <p>{{movie.published_on|date:"d.m.Y H:i:s"}}</p>
+                    <h5>Рейтинг</h5>
+                    <p>{{movie.rating}} % </p>
+                    {% if  movie.description %}
+                        <h3>Описание</h3>
+                        <p>{{ movie.description}}</p>
+                    {% endif %}
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    </body>
+</html>

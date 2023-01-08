@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Фильмотека</title>
+</head>
+<body>
+    <div>
+        <h3>{{current_director.first_name}}{{current_director.last_name}}</h3>
+        <ul>
+            <li><a href="{% url 'index' %}"> Главная </a></li>
+            {% for director in directors %}
+                <li><a href="{% url 'by_director'%} director.pk">{{director.last_name}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h1>Список фильмов в фильмотеке</h1>
+        <hr>
+        {% for m in movies %}
+            <div>
+                <h2>{{m.name}}</h2>
+                <strong>Опубликовано</strong>
+                <p>{{m.published_on | date:'d.m.Y H:i:s'}}</p>
+                <h5> Рейтинг </h5>
+                <p> {{m.rating}} </p>
+                {% if m.description %}
+                    <h3>Описание</h3>
+                    <p> {{m.description}}</p>
+                {% endif %}
+            </div>
+            <hr>
+        <% endfor %>
+    </div>
+</body>
+</html>
